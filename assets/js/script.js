@@ -1,4 +1,4 @@
-// © github.com/papichans
+// © github.com/zyfrefrenzy
 
 // Preloader
 let messagePhase = 1;
