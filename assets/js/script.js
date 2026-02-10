@@ -91,23 +91,81 @@ function backtoImage() {
     }, 180); 
 }
 
-button_no.addEventListener('click', () => {
-    changeImage();
-});
 
-button_no.addEventListener('click', () => {
-    backtoImage();
-});
+
+
 
 // Next Phase
+let noClicks = 0;
 
-button_no.addEventListener('click', () => {
-    imagePhase++;
-    if (imagePhase == 6) {
-        button_no.disabled = true;
-        button_no.style.opacity = 0.5;
-    }
+const noImages = [
+  "assets/images/content-pics/img-2.jpg",
+  "assets/images/content-pics/img-3.jpg",
+  "assets/images/content-pics/img-4.jpg",
+  "assets/images/content-pics/img-5.jpg",
+  "assets/images/content-pics/img-6.jpg",
+  "assets/images/content-pics/img-7.jpg"
+];
+
+const noTexts = [
+  "Hey... don't say no 🥺",
+  "That hurts 💔",
+  "Pleaseee 😢",
+  "You're breaking my heart 😭",
+  "Last chance 😘",
+  "Okay you’re mean 😤"
+];
+
+button_no.addEventListener("click", () => {
+  noClicks++;
+
+  // FIRST CLICK → Change image + text
+  if (noClicks === 1) {
+    image.classList.add("fade");
+
+    setTimeout(() => {
+      image.src = noImages[0];
+      question.textContent = noTexts[0];
+      image.classList.remove("fade");
+    }, 150);
+
+    return;
+  }
+
+  // SECOND CLICK AND ABOVE → Run away + vibrate
+  runAwayButton();
+
+  // Phone vibration (if supported)
+  if (navigator.vibrate) {
+    navigator.vibrate([120, 60, 120]);
+  }
+
+  // Change image + text progressively
+  let i = Math.min(noClicks - 1, noImages.length - 1);
+
+  image.classList.add("fade");
+  setTimeout(() => {
+    image.src = noImages[i];
+    question.textContent = noTexts[i];
+    image.classList.remove("fade");
+  }, 150);
 });
+//make button run away
+
+function runAwayButton() {
+  const area = button_area.getBoundingClientRect();
+
+  const maxX = area.width - button_no.offsetWidth;
+  const maxY = area.height - button_no.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  button_no.style.position = "absolute";
+  button_no.style.left = x + "px";
+  button_no.style.top = y + "px";
+}
+
 
 // She said yes
 
