@@ -91,11 +91,11 @@ function backtoImage() {
     }, 180); 
 }
 
-button_no.addEventListener('mouseover', () => {
+button_no.addEventListener('click', () => {
     changeImage();
 });
 
-button_no.addEventListener('mouseout', () => {
+button_no.addEventListener('click', () => {
     backtoImage();
 });
 
